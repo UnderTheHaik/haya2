@@ -10,6 +10,10 @@
       if (!Array.isArray(variations)) return;
       const group = $('<div class="size-options" role="group" aria-label="Choose a size"></div>');
       const buttons = [];
+      const order=['s','m','l','xl'];
+      const selectedSize=select.val();
+      select.find('option').sort((a,b)=>order.indexOf(a.value.toLowerCase())-order.indexOf(b.value.toLowerCase())).appendTo(select);
+      select.val(selectedSize);
       select.find('option').each(function () {
         if (!this.value) return;
         const value = this.value;

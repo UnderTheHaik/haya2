@@ -5,7 +5,7 @@ add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style('haya2', get_stylesheet_uri(), [], filemtime(get_stylesheet_directory().'/style.css'));
     if (is_product()) wp_enqueue_script('haya2-options',get_template_directory_uri().'/product-options.js',['jquery','wc-add-to-cart-variation'],filemtime(get_stylesheet_directory().'/product-options.js'),true);
 });
-add_action('woocommerce_before_variations_form',function () { echo '<p class="size-help">Choose a size below to check availability and add it to your bag.</p>'; });
+add_action('woocommerce_before_variations_form',function () { echo '<div class="size-choice-heading"><span>Choose your size</span><a href="'.esc_url(home_url('/?pagename=size-guide')).'">Size guide ↗</a></div>'; });
 add_filter('woocommerce_product_add_to_cart_text',function ($text,$product) { return $product->is_type('variable') ? 'Choose size' : $text; },10,2);
 remove_action('woocommerce_sidebar', 'woocommerce_get_sidebar', 10);
 add_filter('loop_shop_columns', fn () => 4);
@@ -40,3 +40,5 @@ add_action('woocommerce_product_query', function ($query) {
     }
 });
 add_action('woocommerce_before_checkout_form', function () { echo '<div class="demo-label">Local demo checkout · Sample products and shipping rates · No real payments</div>'; }, 5);
+
+add_filter('woocommerce_dropdown_variation_attribute_options_args',function($args){if(($args['attribute']??'')==='pa_size'&&is_array($args['options'])){ $order=['s','m','l','xl'];usort($args['options'],fn($a,$b)=>array_search(strtolower($a),$order)<=>array_search(strtolower($b),$order));}return $args;});

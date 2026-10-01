@@ -6,4 +6,4 @@ A static export of the existing WordPress/WooCommerce storefront for sharing in 
 
 The complete original local project is in [shop/](shop/README.md). Run its setup and start scripts from that folder; generated runtime stays in the ignored root work directory.
 
-GitHub Pages serves the separately exported gh-pages branch. The main branch contains the source and static showcase. Deployment workflow examples are retained in deployment-workflows/; they are not enabled automatically.
+GitHub Pages serves the exported gh-pages branch.
